@@ -59,7 +59,7 @@ public class CalendarActivity extends AppCompatActivity
 			public void onClick( View view )
 			{
 				BmobUpdateAgent.update( mContext );
-				Toast.makeText( mContext, "ç‚¹å‡»back", Toast.LENGTH_SHORT ).show();
+				Toast.makeText( mContext, "µã»÷back", Toast.LENGTH_SHORT ).show();
 			}
 		} );
 
