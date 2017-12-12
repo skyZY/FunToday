@@ -1,9 +1,8 @@
 package com.fun.today.calendar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.calendar.library.CaledarAdapter;
 import com.calendar.library.CalendarBean;
@@ -23,30 +21,29 @@ import com.fun.today.R;
 
 import java.util.Date;
 
-import cn.bmob.v3.update.BmobUpdateAgent;
-
 /**
  * Created by joy on 2017/11/27.
  */
 
-public class CalendarActivity extends AppCompatActivity
+public class CalendarActivity extends Activity
 {
 	CalendarDateView mCalendarDateView;
 	TextView mTitle;
 	ListView mList;
 	ImageView mImageBack;
 	Context mContext;
+	
 	@Override
-	protected void onCreate( @Nullable Bundle savedInstanceState )
+	protected void onCreate( Bundle savedInstanceState )
 	{
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_calendar );
 		mContext = this;
-
+		
 		initView();
 		initList();
 	}
-
+	
 	private void initView()
 	{
 		mTitle = findViewById( R.id.title );
@@ -58,11 +55,10 @@ public class CalendarActivity extends AppCompatActivity
 			@Override
 			public void onClick( View view )
 			{
-				BmobUpdateAgent.update( mContext );
-				Toast.makeText( mContext, "µã»÷back", Toast.LENGTH_SHORT ).show();
+				//				BmobUpdateAgent.update( mContext );
 			}
 		} );
-
+		
 		mCalendarDateView.setAdapter( new CaledarAdapter()
 		{
 			@Override
@@ -71,15 +67,15 @@ public class CalendarActivity extends AppCompatActivity
 					ViewGroup parentView,
 					CalendarBean bean )
 			{
-
+				
 				if( convertView == null )
 				{
 					convertView = LayoutInflater.from( parentView.getContext() ).inflate( R.layout.list_item_calendar, null );
 				}
-
+				
 				TextView chinaText = ( TextView )convertView.findViewById( R.id.chinaDateTv );
 				TextView text = ( TextView )convertView.findViewById( R.id.dateTv );
-
+				
 				text.setText( "" + bean.day );
 				if( bean.mothFlag != 0 )
 				{
@@ -90,11 +86,11 @@ public class CalendarActivity extends AppCompatActivity
 					text.setTextColor( 0xff444444 );
 				}
 				chinaText.setText( bean.chinaDay );
-
+				
 				return convertView;
 			}
 		} );
-
+		
 		mCalendarDateView.setOnItemClickListener( new CalendarView.OnItemClickListener()
 		{
 			@Override
@@ -106,11 +102,11 @@ public class CalendarActivity extends AppCompatActivity
 				mTitle.setText( bean.year + "/" + bean.moth + "/" + bean.day );
 			}
 		} );
-
+		
 		int[] data = CalendarUtil.getYMD( new Date() );
 		mTitle.setText( data[ 0 ] + "/" + data[ 1 ] + "/" + data[ 2 ] );
 	}
-
+	
 	private void initList()
 	{
 		mList.setAdapter( new BaseAdapter()
@@ -120,19 +116,19 @@ public class CalendarActivity extends AppCompatActivity
 			{
 				return 100;
 			}
-
+			
 			@Override
 			public Object getItem( int position )
 			{
 				return null;
 			}
-
+			
 			@Override
 			public long getItemId( int position )
 			{
 				return 0;
 			}
-
+			
 			@Override
 			public View getView(
 					int position,
@@ -143,16 +139,16 @@ public class CalendarActivity extends AppCompatActivity
 				{
 					convertView = LayoutInflater.from( mContext ).inflate( android.R.layout.simple_list_item_1, null );
 				}
-
+				
 				TextView textView = ( TextView )convertView;
 				textView.setText( "position:" + position );
-
+				
 				return convertView;
 			}
 		} );
 		mList.setOnItemClickListener( new AdapterView.OnItemClickListener()
 		{
-
+			
 			@Override
 			public void onItemClick(
 					AdapterView< ? > adapterView,
@@ -160,7 +156,7 @@ public class CalendarActivity extends AppCompatActivity
 					int i,
 					long l )
 			{
-
+			
 			}
 		} );
 	}

@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import com.ljq.mvpframework.factory.PresenterMvpFactory;
-import com.ljq.mvpframework.factory.PresenterMvpFactoryImpl;
-import com.ljq.mvpframework.presenter.BaseMvpPresenter;
-import com.ljq.mvpframework.proxy.BaseMvpProxy;
-import com.ljq.mvpframework.proxy.PresenterProxyInterface;
+import com.mvp.library.factory.PresenterMvpFactory;
+import com.mvp.library.factory.PresenterMvpFactoryImpl;
+import com.mvp.library.presenter.BaseMvpPresenter;
+import com.mvp.library.proxy.BaseMvpProxy;
+import com.mvp.library.proxy.PresenterProxyInterface;
 
 /**
  * @author 刘镓旗

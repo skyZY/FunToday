@@ -1,6 +1,13 @@
 package com.fun.today;
 
 import android.app.Application;
+import android.content.Intent;
+
+import com.fun.today.utils.Constants;
+import com.fun.today.utils.LogUtils;
+
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.update.BmobUpdateAgent;
 
 /**
  * Created by joy on 2017/11/29.
@@ -9,18 +16,28 @@ import android.app.Application;
 public class FunTodayApplication extends Application
 {
 	public final static String TAG = "FunTodayApplication";
-	/**
-	 * SDK初始化也可以放到Application中
-	 */
-	public static String APPID = "4771879591ed65f2a2cb71ce5cfa00d1";
 	
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
-		
-		//		Bmob.initialize( this, APPID );
-		//		BmobUpdateAgent.initAppVersion();
-		//		Log.i( "fun", TAG + " onCreate() " );
+		Bmob.initialize( this, Constants.BMOB_APPID );
+		BmobUpdateAgent.initAppVersion();
+		startService( new Intent( this, FunTodayService.class ).setPackage( this.getPackageName() ) );
+		//		Thread.setDefaultUncaughtExceptionHandler( restartHandler );
 	}
+	
+	// 创建服务用于捕获崩溃异常
+	private Thread.UncaughtExceptionHandler restartHandler = new Thread.UncaughtExceptionHandler()
+	{
+		
+		public void uncaughtException(
+				Thread thread,
+				Throwable ex )
+		{
+			LogUtils.i( " FunTodayApplication UncaughtExceptionHandler to restart app " );
+			LogUtils.i( " FunTodayApplication UncaughtExceptionHandler exception : " + ex.toString() );
+			ex.printStackTrace();
+		}
+	};
 }

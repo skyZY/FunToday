@@ -1,0 +1,121 @@
+package com.fun.today.funtoday;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.View;
+import android.view.Window;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.fun.today.R;
+import com.fun.today.funtoday.bean.FunTodayBean;
+import com.fun.today.funtoday.presenter.FunTodayPresenterImpl;
+import com.fun.today.funtoday.view.FunTodayAdapter;
+import com.fun.today.funtoday.view.FunTodayView;
+import com.fun.today.utils.LogUtils;
+import com.mvp.library.view.AbstractMvpActivitiy;
+
+import java.util.List;
+
+/**
+ * Created by joy on 2017/12/12.
+ */
+
+public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTodayPresenterImpl > implements FunTodayView
+{
+	FunTodayPresenterImpl funTodayPresenterImpl;
+	private ImageButton mImgeBtnBack;
+	private TextView mTextTitle;
+	private ListView mList;
+	private ProgressBar mPb;
+	private FunTodayAdapter mFunTodayAdapter;
+	
+	Handler mHandler = new Handler( Looper.getMainLooper() );
+	
+	@Override
+	public void onCreate( Bundle savedInstanceState )
+	{
+		super.onCreate( savedInstanceState );
+		requestWindowFeature( Window.FEATURE_NO_TITLE );
+		setContentView( R.layout.activity_funtoday );
+		funTodayPresenterImpl = new FunTodayPresenterImpl( FunTodayActivity.this );
+		funTodayPresenterImpl.doRequestFunToday();
+		initView();
+	}
+	
+	void initView()
+	{
+		mImgeBtnBack = findViewById( R.id.ft_img_back );
+		mTextTitle = findViewById( R.id.ft_txt_title );
+		mList = findViewById( R.id.ft_list );
+		mPb = findViewById( R.id.ft_pb );
+	}
+	
+	@Override
+	public void requestSuccess( List< FunTodayBean > list )
+	{
+		LogUtils.i( "requestSuccess() list = " + list );
+		mFunTodayAdapter = new FunTodayAdapter( list );
+		mHandler.post( new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				mList.setAdapter( mFunTodayAdapter );
+			}
+		} );
+	}
+	
+	@Override
+	public void requestLoading()
+	{
+		LogUtils.i( "requestLoading() " );
+		mHandler.post( new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				mPb.setVisibility( View.VISIBLE );
+			}
+		} );
+		
+	}
+	
+	@Override
+	public void hideLoading()
+	{
+		LogUtils.i( "hideLoading() " );
+		mHandler.post( new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				mPb.setVisibility( View.GONE );
+			}
+		} );
+		;
+	}
+	
+	@Override
+	public void requestFailure( String result )
+	{
+		LogUtils.i( "requestFailure() result = " + result );
+	}
+	
+	@Override
+	public void showList( List< FunTodayBean > list )
+	{
+		LogUtils.i( "showList() list = " + list );
+	}
+	
+	@Override
+	public void clickItem(
+			List< FunTodayBean > list,
+			int position )
+	{
+		LogUtils.i( "clickItem() list = " + list );
+	}
+}
