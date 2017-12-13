@@ -27,4 +27,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':com.calendar.library')
     api 'cn.bmob.android:bmob-sdk:3.5.7'
+    implementation project(':com.mvp.library')
 }

@@ -14,12 +14,13 @@
         android:orientation="horizontal"
         android:background="#cd3636">
 
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/actbar_home_up_indicator_white_normal"
-            android:scaleType="fitCenter" />
+        <!-- <ImageView
+             android:id="@+id/back"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:background="@mipmap/actbar_home_up_indicator_white_normal"
+             android:scaleType="fitCenter"
+             android:visibility="gone" />-->
 
         <TextView
             android:id="@+id/title"
@@ -30,9 +31,9 @@
             android:text="2016/10/10"
             android:textColor="#ffffff" />
 
-        <View
-            android:layout_width="48dp"
-            android:layout_height="0dp" />
+        <!-- <View
+             android:layout_width="48dp"
+             android:layout_height="0dp" />-->
 
     </LinearLayout>
 
@@ -113,7 +114,8 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff" />
+            android:background="#ffffff"
+            android:visibility="gone" />
 
     </com.calendar.library.CalendarLayout>
 
