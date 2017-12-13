@@ -4,7 +4,9 @@
     android:layout_height="45dp"
     android:background="#112233">
 
-    <!--<ImageButton
+
+    <ImageView
+
         android:id="@+id/ft_img_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,5 +22,7 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:textSize="18sp"
-        android:text="titile" />-->
+        android:text="titile" />
+
+
 </RelativeLayout>

@@ -74,6 +74,8 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 				finish();
 			}
 		} );
+		mList = findViewById( R.id.ft_list );
+		mPb = findViewById( R.id.ft_pb );
 	}
 	
 	@Override
@@ -118,7 +120,6 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 				mPb.setVisibility( View.GONE );
 			}
 		} );
-		;
 	}
 	
 	@Override

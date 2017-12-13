@@ -51,15 +51,6 @@ public class CalendarActivity extends Activity
 		mTitle = findViewById( R.id.title );
 		mCalendarDateView = findViewById( R.id.calendarDateView );
 		mList = findViewById( R.id.list );
-	/*	mImageBack = findViewById( R.id.back );
-		mImageBack.setOnClickListener( new View.OnClickListener()
-		{
-			@Override
-			public void onClick( View view )
-			{
-				//				BmobUpdateAgent.update( mContext );
-			}
-		} );*/
 		
 		mCalendarDateView.setAdapter( new CaledarAdapter()
 		{
@@ -94,6 +85,7 @@ public class CalendarActivity extends Activity
 		} );
 		
 		mCalendarDateView.setOnItemClickListener( new CalendarView.OnItemClickListener()
+		
 		{
 			@Override
 			public void onItemClick(
