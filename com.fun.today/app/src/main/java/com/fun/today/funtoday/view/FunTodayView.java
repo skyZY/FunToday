@@ -43,4 +43,19 @@ public interface FunTodayView extends BaseMvpView
 			List< FunTodayBean > list,
 			int position );
 	
+	/**
+	 * 将当天数据保存到db
+	 */
+	void saveFunToday(
+			int month,
+			int day,
+			String data );
+	
+	/**
+	 * 清楚当天db数据
+	 */
+	void clearFunToday(
+			int month,
+			int day );
+	
 }

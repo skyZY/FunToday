@@ -13,8 +13,8 @@
         android:layout_marginLeft="5dp"
         android:gravity="center"
         android:text="title"
-        android:textSize="14sp" />
-
+        android:textColor="#080000"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/ft_list_year"
@@ -24,6 +24,7 @@
         android:layout_marginLeft="10dp"
         android:gravity="center"
         android:textSize="12sp"
+        android:textColor="#080000"
         android:text="year" />
 
 

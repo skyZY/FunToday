@@ -30,6 +30,7 @@
         </activity>
 
         <activity android:name=".funtoday.FunTodayActivity" />
+        <activity android:name=".funtoday.FunTodayDetailsActivity" />
 
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"

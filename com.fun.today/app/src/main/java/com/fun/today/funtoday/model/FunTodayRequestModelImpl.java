@@ -25,8 +25,8 @@ public class FunTodayRequestModelImpl implements FunTodayRequestModel
 	
 	@Override
 	public void doRequestFunToday(
-			int month,
-			int day,
+			final int month,
+			final int day,
 			final FunTodayView funTodayView )
 	{
 		FixedThreadPoolManager.getInstance().sumbitRunnable( new Runnable()
@@ -46,6 +46,7 @@ public class FunTodayRequestModelImpl implements FunTodayRequestModel
 					List< FunTodayBean > dataList;
 					dataList = analyseRequestData( requestResullt );
 					funTodayView.requestSuccess( dataList );
+					funTodayView.saveFunToday( month, day, requestResullt );
 				}
 			}
 		} );

@@ -19,10 +19,10 @@ public class FunTodayAdapter extends BaseAdapter
 {
 	private List< FunTodayBean > mDataList;
 	
-	public FunTodayAdapter( List< FunTodayBean > dataList )
+	public FunTodayAdapter(
+			List< FunTodayBean > dataList )
 	{
 		this.mDataList = dataList;
-		;
 	}
 	
 	@Override
