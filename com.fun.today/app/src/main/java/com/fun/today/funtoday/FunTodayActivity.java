@@ -39,6 +39,7 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 	private ProgressBar mPb;
 	private FunTodayAdapter mFunTodayAdapter;
 	private Context mContext;
+	private List< FunTodayBean > mDataList;
 	
 	Handler mHandler = new Handler( Looper.getMainLooper() );
 	
@@ -63,10 +64,10 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 		{
 			LogUtils.i( "onResume() currentKey = lastSaveKey " + currentKey );
 			String data = DBConfig.getInstance( mContext ).getKpshString( Constants.DB_SAVE_LAST_DATA_KEY );
-			List< FunTodayBean > dataList = FunTodayUtils.analyseRequestData( data );
-			if( dataList.size() > 0 )
+			mDataList = FunTodayUtils.analyseRequestData( data );
+			if( mDataList.size() > 0 )
 			{
-				mFunTodayAdapter = new FunTodayAdapter( dataList );
+				mFunTodayAdapter = new FunTodayAdapter( mDataList );
 				mHandler.post( new Runnable()
 				{
 					@Override
@@ -124,15 +125,19 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 				int i,
 				long l )
 		{
-			startActivity( new Intent( mContext, FunTodayDetailsActivity.class ) );
+			Intent intentDetail = new Intent( mContext, FunTodayDetailsActivity.class );
+			FunTodayBean funTodayBean = mDataList.get( i );
+			intentDetail.putExtra( "funtodaybean", funTodayBean );
+			startActivity( intentDetail );
 		}
 	};
 	
 	@Override
 	public void requestSuccess( List< FunTodayBean > list )
 	{
-		LogUtils.i( "requestSuccess() list = " + list );
-		mFunTodayAdapter = new FunTodayAdapter( list );
+		mDataList = list;
+		LogUtils.i( "requestSuccess() list = " + list + " ,mDataList = " + mDataList );
+		mFunTodayAdapter = new FunTodayAdapter( mDataList );
 		mHandler.post( new Runnable()
 		{
 			@Override

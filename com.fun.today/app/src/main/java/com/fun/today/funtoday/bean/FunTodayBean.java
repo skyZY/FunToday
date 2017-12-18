@@ -1,11 +1,28 @@
 package com.fun.today.funtoday.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by joy on 2017/12/12.
  */
 
-public class FunTodayBean
+public class FunTodayBean implements Parcelable
 {
+	public static final Creator< FunTodayBean > CREATOR = new Creator< FunTodayBean >()
+	{
+		@Override
+		public FunTodayBean createFromParcel( Parcel in )
+		{
+			return new FunTodayBean( in );
+		}
+		
+		@Override
+		public FunTodayBean[] newArray( int size )
+		{
+			return new FunTodayBean[ size ];
+		}
+	};
 	/**
 	 * _id : 19021101
 	 * title : 挪威作家格里格诞生
@@ -25,6 +42,22 @@ public class FunTodayBean
 	private int day;
 	private String des;
 	private String lunar;
+	
+	public FunTodayBean()
+	{
+	}
+	
+	protected FunTodayBean( Parcel in )
+	{
+		_id = in.readString();
+		title = in.readString();
+		pic = in.readString();
+		year = in.readInt();
+		month = in.readInt();
+		day = in.readInt();
+		des = in.readString();
+		lunar = in.readString();
+	}
 	
 	public String get_id()
 	{
@@ -110,5 +143,27 @@ public class FunTodayBean
 	public String toString()
 	{
 		return "FunTodayBean{" + "_id='" + _id + '\'' + ", title='" + title + '\'' + ", pic='" + pic + '\'' + ", year=" + year + ", month=" + month + ", day=" + day + ", des='" + des + '\'' + ", lunar='" + lunar + '\'' + '}';
+	}
+	
+	@Override
+	public int describeContents()
+	{
+		return 0;
+	}
+	
+	@Override
+	public void writeToParcel(
+			Parcel dest,
+			int flags )
+	{
+		
+		dest.writeString( _id );
+		dest.writeString( title );
+		dest.writeString( pic );
+		dest.writeInt( year );
+		dest.writeInt( month );
+		dest.writeInt( day );
+		dest.writeString( des );
+		dest.writeString( lunar );
 	}
 }
