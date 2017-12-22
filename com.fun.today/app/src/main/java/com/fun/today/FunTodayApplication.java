@@ -38,7 +38,7 @@ public class FunTodayApplication extends Application
 	{
 		super.onCreate();
 		Bmob.initialize( this, Constants.BMOB_APPID );
-		BmobUpdateAgent.initAppVersion();
+		BmobUpdateAgent.initAppVersion( this );
 		startService( new Intent( this, FunTodayService.class ).setPackage( this.getPackageName() ) );
 		Thread.setDefaultUncaughtExceptionHandler( restartHandler );
 		sInstance = this;

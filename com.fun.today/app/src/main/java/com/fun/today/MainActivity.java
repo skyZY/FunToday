@@ -33,6 +33,7 @@ public class MainActivity extends Activity
 				startActivity( new Intent( mContext, FunTodayActivity.class ) );
 			}
 		} );
+		
 	}
 	
 }

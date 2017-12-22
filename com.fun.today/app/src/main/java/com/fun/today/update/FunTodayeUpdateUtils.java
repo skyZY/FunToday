@@ -48,7 +48,7 @@ public class FunTodayeUpdateUtils
 		{
 			//FIXME：验证下面两句是否需要
 			Bmob.initialize( context, Constants.BMOB_APPID );
-			BmobUpdateAgent.initAppVersion();
+			BmobUpdateAgent.initAppVersion( context );
 			
 			BmobUpdateAgent.setUpdateOnlyWifi( false );
 			BmobUpdateAgent.update( context );
@@ -68,7 +68,7 @@ public class FunTodayeUpdateUtils
 					{
 						LogUtils.i( TAG + " doBmobUpdate() 版本无更新" );
 					}
-					else if( updateStatus == UpdateStatus.EmptyField )
+					else if( updateStatus == UpdateStatus.ErrorSizeFormat )
 					{
 						//此提示只是提醒开发者关注那些必填项，测试成功后，无需对用户提示
 						LogUtils.i( TAG + " doBmobUpdate() 请检查你AppVersion表的必填项，1、target_size（文件大小）是否填写；2、path或者android_url两者必填其中一项。" );
@@ -77,7 +77,7 @@ public class FunTodayeUpdateUtils
 					{
 						LogUtils.i( TAG + " doBmobUpdate() 该版本已被忽略更新" );
 					}
-					else if( updateStatus == UpdateStatus.ErrorSizeFormat )
+					else if( updateStatus == UpdateStatus.No )
 					{
 						LogUtils.i( TAG + " doBmobUpdate() 请检查target_size填写的格式，请使用file.length()方法获取apk大小。" );
 					}
@@ -85,7 +85,7 @@ public class FunTodayeUpdateUtils
 					{
 						LogUtils.i( TAG + " doBmobUpdate() 查询出错或查询超时" );
 					}
-					LogUtils.i( TAG + "MainActivity onCreate() -->>onUpdateReturned() updateStatus = " + updateStatus + " ,updateResponse = " + updateResponse.exception );
+					LogUtils.i( TAG + "MainActivity onCreate() -->>onUpdateReturned() updateStatus = " + updateStatus + " ,updateResponse = " + updateResponse.updateLog );
 				}
 			} );
 		}
