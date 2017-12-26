@@ -1,6 +1,7 @@
 package com.fun.today.funtoday;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Window;
@@ -12,6 +13,7 @@ import com.fun.today.FunTodayApplication;
 import com.fun.today.R;
 import com.fun.today.funtoday.bean.FunTodayBean;
 import com.fun.today.view.AutoSpliteTextView;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * author sunyanpeng
@@ -25,6 +27,7 @@ public class FunTodayDetailsActivity extends Activity
 	TextView ft_detail_txt_title;
 	TextView ft_detail_date;
 	ImageView ft_detail_pic;
+	private Context mContext;
 	
 	@Override
 	public void onCreate( Bundle savedInstanceState )
@@ -33,6 +36,7 @@ public class FunTodayDetailsActivity extends Activity
 		requestWindowFeature( Window.FEATURE_NO_TITLE );
 		setContentView( R.layout.activity_funtoday_detail );
 		
+		mContext = this;
 		initId();
 		initData();
 		
@@ -74,4 +78,17 @@ public class FunTodayDetailsActivity extends Activity
 		il.get( url, imageListener, 500, 500 );
 	}
 	
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		MobclickAgent.onResume( mContext );
+	}
+	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		MobclickAgent.onPause( mContext );
+	}
 }

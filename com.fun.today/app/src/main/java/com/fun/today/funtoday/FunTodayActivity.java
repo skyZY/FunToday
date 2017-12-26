@@ -24,6 +24,7 @@ import com.fun.today.utils.Constants;
 import com.fun.today.utils.DateAndTimeUtils;
 import com.fun.today.utils.LogUtils;
 import com.mvp.library.view.AbstractMvpActivitiy;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -72,6 +73,7 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 	{
 		super.onResume();
 		//		String currentKey = DateAndTimeUtils.getCurrentMonth() + "-" + DateAndTimeUtils.getCurrentDay();
+		MobclickAgent.onResume( mContext );
 		String currentKey = mBean.moth + "-" + mBean.day;
 		String lastSaveKey = DBConfig.getInstance( mContext ).getKpshString( Constants.KEY_DB_SAVE_LAST_KEY );
 		if( currentKey.equals( lastSaveKey ) )
@@ -219,5 +221,12 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 			int day )
 	{
 	
+	}
+	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		MobclickAgent.onPause( mContext );
 	}
 }
