@@ -20,6 +20,7 @@ import com.calendar.library.CalendarUtil;
 import com.calendar.library.CalendarView;
 import com.fun.today.R;
 import com.fun.today.funtoday.FunTodayActivity;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.Date;
 
@@ -85,7 +86,6 @@ public class CalendarActivity extends Activity
 		} );
 		
 		mCalendarDateView.setOnItemClickListener( new CalendarView.OnItemClickListener()
-		
 		{
 			@Override
 			public void onItemClick(
@@ -96,7 +96,8 @@ public class CalendarActivity extends Activity
 				String date = bean.year + "/" + bean.moth + "/" + bean.day;
 				mTitle.setText( date );
 				Intent intent = new Intent( mContext, FunTodayActivity.class );
-				intent.putExtra( "date", date );
+				//				intent.putExtra( "date", date );
+				intent.putExtra( "bean", bean );
 				startActivity( intent );
 			}
 		} );
@@ -157,5 +158,19 @@ public class CalendarActivity extends Activity
 			
 			}
 		} );
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		MobclickAgent.onResume( mContext );
+	}
+	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		MobclickAgent.onPause( mContext );
 	}
 }

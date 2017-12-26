@@ -1,6 +1,9 @@
 package com.calendar.library;
 
-public class CalendarBean
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class CalendarBean implements Parcelable
 {
 	
 	public int year;
@@ -24,6 +27,32 @@ public class CalendarBean
 		this.moth = moth;
 		this.day = day;
 	}
+	
+	protected CalendarBean( Parcel in )
+	{
+		year = in.readInt();
+		moth = in.readInt();
+		day = in.readInt();
+		week = in.readInt();
+		mothFlag = in.readInt();
+		chinaMonth = in.readString();
+		chinaDay = in.readString();
+	}
+	
+	public static final Creator< CalendarBean > CREATOR = new Creator< CalendarBean >()
+	{
+		@Override
+		public CalendarBean createFromParcel( Parcel in )
+		{
+			return new CalendarBean( in );
+		}
+		
+		@Override
+		public CalendarBean[] newArray( int size )
+		{
+			return new CalendarBean[ size ];
+		}
+	};
 	
 	public String getDisplayWeek()
 	{
@@ -62,5 +91,26 @@ public class CalendarBean
 		//        String s=year+"/"+moth+"/"+day+"\t"+getDisplayWeek()+"\t农历"+":"+chinaMonth+"/"+chinaDay;
 		String s = year + "/" + moth + "/" + day;
 		return s;
+	}
+	
+	@Override
+	public int describeContents()
+	{
+		return 0;
+	}
+	
+	@Override
+	public void writeToParcel(
+			Parcel dest,
+			int flags )
+	{
+		
+		dest.writeInt( year );
+		dest.writeInt( moth );
+		dest.writeInt( day );
+		dest.writeInt( week );
+		dest.writeInt( mothFlag );
+		dest.writeString( chinaMonth );
+		dest.writeString( chinaDay );
 	}
 }

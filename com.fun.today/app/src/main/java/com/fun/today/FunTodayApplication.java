@@ -1,6 +1,7 @@
 package com.fun.today;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
@@ -10,6 +11,8 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
 import com.fun.today.utils.Constants;
 import com.fun.today.utils.LogUtils;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics.game.UMGameAgent;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.update.BmobUpdateAgent;
@@ -33,7 +36,6 @@ public class FunTodayApplication extends Application
 	private static FunTodayApplication sInstance;
 	
 	@Override
-	
 	public void onCreate()
 	{
 		super.onCreate();
@@ -42,6 +44,7 @@ public class FunTodayApplication extends Application
 		startService( new Intent( this, FunTodayService.class ).setPackage( this.getPackageName() ) );
 		Thread.setDefaultUncaughtExceptionHandler( restartHandler );
 		sInstance = this;
+		initUM( this );
 	}
 	
 	// 创建服务用于捕获崩溃异常
@@ -121,5 +124,15 @@ public class FunTodayApplication extends Application
 		{
 			mRequestQueue.cancelAll( tag );
 		}
+	}
+	
+	public void initUM( Context context )
+	{
+		MobclickAgent.onKillProcess( context );
+		UMGameAgent.init( context );
+		UMGameAgent.setDebugMode( true );//设置debug模式
+		MobclickAgent.enableEncrypt( false );//设置日志加密
+		MobclickAgent.openActivityDurationTrack( false );
+		MobclickAgent.setScenarioType( context, MobclickAgent.EScenarioType.E_UM_NORMAL );
 	}
 }

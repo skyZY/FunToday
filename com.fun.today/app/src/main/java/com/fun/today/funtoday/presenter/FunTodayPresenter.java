@@ -7,5 +7,7 @@ package com.fun.today.funtoday.presenter;
 public interface FunTodayPresenter
 {
 	
-	void doRequestFunToday();
+	void doRequestFunToday(
+			int month,
+			int day );
 }

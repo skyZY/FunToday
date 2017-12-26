@@ -6,7 +6,6 @@ import com.fun.today.funtoday.bean.FunTodayBean;
 import com.fun.today.funtoday.view.FunTodayView;
 import com.fun.today.https.HttpUtils;
 import com.fun.today.utils.Constants;
-import com.fun.today.utils.DateAndTimeUtils;
 import com.fun.today.utils.FixedThreadPoolManager;
 import com.fun.today.utils.LogUtils;
 
@@ -35,7 +34,7 @@ public class FunTodayRequestModelImpl implements FunTodayRequestModel
 			public void run()
 			{
 				funTodayView.requestLoading();
-				String requestResullt = HttpUtils.requestGet( Constants.JUHE_APPKEY, DateAndTimeUtils.getCurrentMonth(), DateAndTimeUtils.getCurrentDay(), Constants.URL_FUN_TODAY );
+				String requestResullt = HttpUtils.requestGet( Constants.JUHE_APPKEY, month, day, Constants.URL_FUN_TODAY );
 				funTodayView.hideLoading();
 				if( TextUtils.isEmpty( requestResullt ) )
 				{

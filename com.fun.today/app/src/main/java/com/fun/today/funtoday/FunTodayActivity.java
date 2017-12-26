@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.calendar.library.CalendarBean;
 import com.fun.today.R;
 import com.fun.today.db.DBConfig;
 import com.fun.today.funtoday.bean.FunTodayBean;
@@ -40,6 +41,8 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 	private FunTodayAdapter mFunTodayAdapter;
 	private Context mContext;
 	private List< FunTodayBean > mDataList;
+	CalendarBean mBean;
+	String date;
 	
 	Handler mHandler = new Handler( Looper.getMainLooper() );
 	
@@ -50,7 +53,17 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 		requestWindowFeature( Window.FEATURE_NO_TITLE );
 		setContentView( R.layout.activity_funtoday );
 		mContext = this;
-		
+		Intent intent = getIntent();
+		LogUtils.i( "intent = " + intent );
+		if( null != intent )
+		{
+			mBean = ( CalendarBean )intent.getParcelableExtra( "bean" );
+			date = mBean.year + "/" + mBean.moth + "/" + mBean.day;
+		}
+		else
+		{
+			date = DateAndTimeUtils.getStringCurrentDay();
+		}
 		initView();
 	}
 	
@@ -58,7 +71,8 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 	protected void onResume()
 	{
 		super.onResume();
-		String currentKey = DateAndTimeUtils.getCurrentMonth() + "-" + DateAndTimeUtils.getCurrentDay();
+		//		String currentKey = DateAndTimeUtils.getCurrentMonth() + "-" + DateAndTimeUtils.getCurrentDay();
+		String currentKey = mBean.moth + "-" + mBean.day;
 		String lastSaveKey = DBConfig.getInstance( mContext ).getKpshString( Constants.KEY_DB_SAVE_LAST_KEY );
 		if( currentKey.equals( lastSaveKey ) )
 		{
@@ -67,7 +81,7 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 			mDataList = FunTodayUtils.analyseRequestData( data );
 			if( mDataList.size() > 0 )
 			{
-				mFunTodayAdapter = new FunTodayAdapter( mDataList );
+				mFunTodayAdapter = new FunTodayAdapter( mContext, mDataList );
 				mHandler.post( new Runnable()
 				{
 					@Override
@@ -80,8 +94,9 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 		}
 		else
 		{
+			
 			funTodayPresenterImpl = new FunTodayPresenterImpl( FunTodayActivity.this );
-			funTodayPresenterImpl.doRequestFunToday();
+			funTodayPresenterImpl.doRequestFunToday( mBean.moth, mBean.day );
 		}
 	}
 	
@@ -89,17 +104,7 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 	{
 		mImgeBtnBack = findViewById( R.id.ft_img_back );
 		mTextTitle = findViewById( R.id.ft_txt_title );
-		Intent intent = getIntent();
-		LogUtils.i( "intent = " + intent );
-		String date;
-		if( null != intent )
-		{
-			date = intent.getStringExtra( "date" );
-		}
-		else
-		{
-			date = DateAndTimeUtils.getStringCurrentDay();
-		}
+		
 		mTextTitle.setText( date );
 		mList = findViewById( R.id.ft_list );
 		mPb = findViewById( R.id.ft_pb );
@@ -112,7 +117,6 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 			}
 		} );
 		mList = findViewById( R.id.ft_list );
-		mPb = findViewById( R.id.ft_pb );
 		mList.setOnItemClickListener( listener );
 	}
 	
@@ -137,7 +141,7 @@ public class FunTodayActivity extends AbstractMvpActivitiy< FunTodayView, FunTod
 	{
 		mDataList = list;
 		LogUtils.i( "requestSuccess() list = " + list + " ,mDataList = " + mDataList );
-		mFunTodayAdapter = new FunTodayAdapter( mDataList );
+		mFunTodayAdapter = new FunTodayAdapter( mContext, mDataList );
 		mHandler.post( new Runnable()
 		{
 			@Override

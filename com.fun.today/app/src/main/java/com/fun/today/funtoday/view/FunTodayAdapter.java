@@ -1,5 +1,6 @@
 package com.fun.today.funtoday.view;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,13 @@ import java.util.List;
 public class FunTodayAdapter extends BaseAdapter
 {
 	private List< FunTodayBean > mDataList;
+	private Context mContext;
 	
 	public FunTodayAdapter(
+			Context context,
 			List< FunTodayBean > dataList )
 	{
+		this.mContext = context;
 		this.mDataList = dataList;
 	}
 	
@@ -61,7 +65,7 @@ public class FunTodayAdapter extends BaseAdapter
 		FunTodayBean funTodayBean = mDataList.get( i );
 		viewHolder = ( ViewHolder )view.getTag();
 		viewHolder.ft_list_title.setText( funTodayBean.getTitle() );
-		viewHolder.ft_list_year.setText( funTodayBean.getYear() + "" );
+		viewHolder.ft_list_year.setText( funTodayBean.getYear() + mContext.getResources().getString( R.string.ft_year ) );
 		return view;
 	}
 	

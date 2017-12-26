@@ -6,7 +6,6 @@ import android.os.Looper;
 import com.fun.today.funtoday.model.FunTodayRequestModel;
 import com.fun.today.funtoday.model.FunTodayRequestModelImpl;
 import com.fun.today.funtoday.view.FunTodayView;
-import com.fun.today.utils.DateAndTimeUtils;
 import com.mvp.library.presenter.BaseMvpPresenter;
 
 /**
@@ -27,8 +26,10 @@ public class FunTodayPresenterImpl extends BaseMvpPresenter< FunTodayView > impl
 	}
 	
 	@Override
-	public void doRequestFunToday()
+	public void doRequestFunToday(
+			int month,
+			int day )
 	{
-		mFunTodayRequestModel.doRequestFunToday( DateAndTimeUtils.getCurrentMonth(), DateAndTimeUtils.getCurrentDay(), mFunTodayView );
+		mFunTodayRequestModel.doRequestFunToday( month, day, mFunTodayView );
 	}
 }
