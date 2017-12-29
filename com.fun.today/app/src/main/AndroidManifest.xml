@@ -33,6 +33,17 @@
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+
+        <!--  <provider
+              android:authorities="com.fun.today.fileprovider"
+              android:name="android.support.v4.content.FileProvider"
+              android:exported="false"
+              android:grantUriPermissions="true">
+              <meta-data
+                  android:name="android.support.FILE_PROVIDER_PATHS"
+                  android:resource="@xml/bdp_update_filepaths" />
+          </provider>-->
+
         <!--<meta-data
             android:value="2"
             android:name="BMOB_CHANNEL" />-->
@@ -42,6 +53,14 @@
         <meta-data
             android:name="DN123456"
             android:value="UMENG_CHANNEL" />
+        <!--aibdu start-->
+        <meta-data
+            android:name="BDAPPID"
+            android:value="10588876" />
+        <meta-data
+            android:name="BDAPPKEY"
+            android:value="bd2mXUQDCBnh5gUsK302xOBBp6FITdey" />
+        <!--aibdu end-->
     </application>
 
 </manifest>

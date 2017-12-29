@@ -1,1 +1,1 @@
-include ':app', ':com.calendar.library', ':com.mvp.library'
+include ':app', ':com.calendar.library', ':com.mvp.library', ':bdintegrationsdklibrary'

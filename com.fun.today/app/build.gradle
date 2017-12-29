@@ -41,7 +41,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles 'proguard.cfg'
             debuggable false
             jniDebuggable false
@@ -62,6 +62,12 @@ android {
              minifyEnabled true
              proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
          }*/
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "FunToday-" + new Date().format("yyyy-mm-dd") + ".apk"
+        }
     }
 
     sourceSets.main {
@@ -88,8 +94,9 @@ dependencies {
     implementation project(':com.mvp.library')
     implementation 'com.android.support:support-v4:+'
     implementation files('libs/Volley.jar')
-    implementation 'com.android.support:appcompat-v7:+'
-    compile 'cn.bmob.android:bmob-sdk:3.4.7'
-    implementation files('libs/okhttp-3.9.1.jar')
+    implementation files('libs/bmob-sdk-3.3.5.jar')
+    implementation files('libs/umeng-analytics-v6.1.0.jar')
+    implementation files('libs/utdid4all-1.0.4.jar')
+    implementation project(':bdintegrationsdklibrary')
 }
 
